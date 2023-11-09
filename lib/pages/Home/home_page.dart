@@ -1,157 +1,293 @@
-import 'package:flutter/material.dart';
-import 'package:musico/provider/home_page_provider.dart';
-import 'package:musico/provider/username_provider.dart';
-import 'package:provider/provider.dart';
-import '../../data/sample_music_data.dart';
+// import 'package:flutter/material.dart';
+// import 'package:spotify_clone/views/album_view.dart';
+// import 'package:spotify_clone/widgets/album_card.dart';
+// import 'package:spotify_clone/widgets/song_card.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+// class HomeView extends StatefulWidget {
+//   @override
+//   _HomeViewState createState() => _HomeViewState();
+// }
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+// class _HomeViewState extends State<HomeView> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         alignment: Alignment.topLeft,
+//         children: [
+//           Container(
+//             width: MediaQuery.of(context).size.width,
+//             height: MediaQuery.of(context).size.height * .6,
+//             decoration: BoxDecoration(
+//               color: Color(0xFf1C7A74),
+//             ),
+//           ),
+//           SingleChildScrollView(
+//             physics: BouncingScrollPhysics(),
+//             child: Container(
+//               decoration: BoxDecoration(
+//                 gradient: LinearGradient(
+//                   begin: Alignment.topCenter,
+//                   end: Alignment.bottomCenter,
+//                   colors: [
+//                     Colors.black.withOpacity(0),
+//                     Colors.black.withOpacity(.9),
+//                     Colors.black.withOpacity(1),
+//                     Colors.black.withOpacity(1),
+//                     Colors.black.withOpacity(1),
+//                   ],
+//                 ),
+//               ),
+//               child: SafeArea(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   children: [
+//                     SizedBox(height: 40),
+//                     Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 16),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Text(
+//                             "Recently Played",
+//                             style: Theme.of(context).textTheme.headline6,
+//                           ),
+//                           Row(
+//                             children: [
+//                               Icon(Icons.history),
+//                               SizedBox(width: 16),
+//                               Icon(Icons.settings),
+//                             ],
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//                     SingleChildScrollView(
+//                       scrollDirection: Axis.horizontal,
+//                       physics: BouncingScrollPhysics(),
+//                       padding: EdgeInsets.all(16),
+//                       child: Row(
+//                         children: [
+//                           AlbumCard(
+//                             label: "Best Mode",
+//                             image: AssetImage("assets/album7.jpg"),
+//                           ),
+//                           SizedBox(width: 16),
+//                           AlbumCard(
+//                             label: "Mot6ivation Mix",
+//                             image: AssetImage("assets/album2.jpg"),
+//                           ),
+//                           SizedBox(width: 16),
+//                           AlbumCard(
+//                             label: "Top 50-Global",
+//                             image: AssetImage("assets/top50.jpg"),
+//                           ),
+//                           SizedBox(width: 16),
+//                           AlbumCard(
+//                             label: "Power Gaming",
+//                             image: AssetImage("assets/album1.jpg"),
+//                           ),
+//                           SizedBox(width: 16),
+//                           AlbumCard(
+//                             label: "Top songs - Global",
+//                             image: AssetImage("assets/album9.jpg"),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     SizedBox(height: 32),
+//                     Padding(
+//                       padding: const EdgeInsets.all(16.0),
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.stretch,
+//                         children: [
+//                           Text(
+//                             "Good evening",
+//                             style: Theme.of(context).textTheme.headline6,
+//                           ),
+//                           SizedBox(height: 16),
+//                           Row(
+//                             children: [
+//                               RowAlbumCard(
+//                                 label: "Top 50 - Global",
+//                                 image: AssetImage("assets/top50.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               RowAlbumCard(
+//                                 label: "Best Mode",
+//                                 image: AssetImage("assets/album1.jpg"),
+//                               ),
+//                             ],
+//                           ),
+//                           SizedBox(height: 16),
+//                           Row(
+//                             children: [
+//                               RowAlbumCard(
+//                                 label: "RapCaviar",
+//                                 image: AssetImage("assets/album2.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               RowAlbumCard(
+//                                 label: "Eminem",
+//                                 image: AssetImage("assets/album5.jpg"),
+//                               ),
+//                             ],
+//                           ),
+//                           SizedBox(height: 16),
+//                           Row(
+//                             children: [
+//                               RowAlbumCard(
+//                                 label: "Top 50 - USA",
+//                                 image: AssetImage("assets/album9.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               RowAlbumCard(
+//                                 label: "Pop Remix",
+//                                 image: AssetImage("assets/album10.jpg"),
+//                               ),
+//                             ],
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Padding(
+//                           padding: const EdgeInsets.all(16.0),
+//                           child: Text(
+//                             "Based on your recent listening",
+//                             style: Theme.of(context).textTheme.headline6,
+//                           ),
+//                         ),
+//                         SingleChildScrollView(
+//                           scrollDirection: Axis.horizontal,
+//                           physics: BouncingScrollPhysics(),
+//                           padding: EdgeInsets.symmetric(
+//                             horizontal: 20,
+//                           ),
+//                           child: Row(
+//                             children: [
+//                               SongCard(
+//                                 image: AssetImage("assets/album2.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album6.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album9.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album4.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album5.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album1.jpg"),
+//                               ),
+//                             ],
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                     SizedBox(height: 16),
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Padding(
+//                           padding: const EdgeInsets.all(16.0),
+//                           child: Text(
+//                             "Recommended radio",
+//                             style: Theme.of(context).textTheme.headline6,
+//                           ),
+//                         ),
+//                         SingleChildScrollView(
+//                           scrollDirection: Axis.horizontal,
+//                           physics: BouncingScrollPhysics(),
+//                           padding: EdgeInsets.symmetric(
+//                             horizontal: 20,
+//                           ),
+//                           child: Row(
+//                             children: [
+//                               SongCard(
+//                                 image: AssetImage("assets/album8.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album5.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album6.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album1.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album3.jpg"),
+//                               ),
+//                               SizedBox(width: 16),
+//                               SongCard(
+//                                 image: AssetImage("assets/album10.jpg"),
+//                               ),
+//                             ],
+//                           ),
+//                         )
+//                       ],
+//                     ),
+//                     SizedBox(height: 16),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      final homePageProvider =
-          Provider.of<HomePageProvider>(context, listen: false);
-      homePageProvider.updateGreeting();
-    });
-  }
+// class RowAlbumCard extends StatelessWidget {
+//   final AssetImage image;
+//   final String label;
+//   const RowAlbumCard({
+//     Key key,
+//     this.image,
+//     this.label,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final userNameProvider =
-        Provider.of<UserNameProvider>(context, listen: false);
-    final username = userNameProvider.name;
-    final greetProvider = Provider.of<HomePageProvider>(context, listen: false);
-    final greet = greetProvider.greet;
-
-    return Scaffold(
-      appBar: AppBar(
-          title: Text(
-            greet,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
-          ]),
-      body: Consumer<HomePageProvider>(
-        builder: (context, value, child) => Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Text(value.greet,
-                //     style: const TextStyle(
-                //         fontSize: 30, fontWeight: FontWeight.bold)),
-                Text(username,
-                    style: const TextStyle(
-                        color: Colors.teal,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold)),
-                const Text('Continue Listening',
-                    style: TextStyle(
-                        color: Colors.teal,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold)),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // Ensure the ListView does not take up extra space
-                  itemCount: musicList.length,
-                  itemBuilder: (context, index) {
-                    final music = musicList[index];
-                    return ListTile(
-                      onTap: () {},
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          music.image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      title: Text(music.title),
-                      subtitle: Text(music.artist),
-                      trailing: PopupMenuButton(itemBuilder: (context) {
-                        return <PopupMenuEntry>[
-                          PopupMenuItem(
-                            onTap: () {},
-                            value: 'spotify',
-                            child: const Text('Open in Spotify'),
-                          ),
-                        ];
-                      }),
-                    );
-                  },
-                ),
-
-                const Text('Top Chart'),
-
-                //horizontal playlist
-
-                SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: musicList.length,
-                    itemBuilder: (context, index) {
-                      final music = musicList[index];
-                      return Container(
-                        padding: const EdgeInsets.only(right: 20),
-                        width: 100,
-                        child: Column(
-                          children: [
-                            Image.network(music.image),
-                            Text(music.artist)
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: musicList.length,
-                    itemBuilder: (context, index) {
-                      final music = musicList[index];
-                      return InkWell(
-                        onTap: () {
-                          print(music.artist);
-                        },
-                        child: Container(
-                          width: 120,
-                          margin: const EdgeInsets.only(right: 20),
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.network(music.image),
-                              Text(
-                                music.artist,
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Expanded(
+//       flex: 1,
+//       child: Container(
+//         decoration: BoxDecoration(
+//           color: Colors.white10,
+//           borderRadius: BorderRadius.circular(4),
+//         ),
+//         clipBehavior: Clip.antiAlias,
+//         child: Row(
+//           children: [
+//             Image(
+//               image: image,
+//               height: 48,
+//               width: 48,
+//               fit: BoxFit.cover,
+//             ),
+//             SizedBox(width: 8),
+//             Text(label)
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
